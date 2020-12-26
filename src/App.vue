@@ -9,11 +9,12 @@
 <script>
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import {getCategoryList} from './api'
+import {getCategoryList,getBannerList} from './api'
 export default {
   name: "App",
   mounted() {
     this.$store.dispatch('getCategoryList')
+    this.$store.dispatch('getBannerList')
   },
   components: {
     Header,

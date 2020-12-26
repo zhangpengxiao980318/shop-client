@@ -1,7 +1,59 @@
 <template>
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="hideFirst" @mouseenter="showFirst">
+        <h2 class="all">全部商品分类</h2>
+        <transition name="slide">
+          <div class="sort" v-show="isShowFirst">
+            <div class="all-sort-list2" @click="toSearch">
+              <div
+                class="item"
+                v-for="(c1, index) in categoryList"
+                :key="c1.categoryId"
+                @mouseenter="showSubList(index)"
+                :class="{ active: currentIndex === index }"
+              >
+                <h3>
+                  <a
+                    href="javascript:;"
+                    :data-categoryName="c1.categoryName"
+                    :data-category1Id="c1.categoryId"
+                    >{{ c1.categoryName }}</a
+                  >
+                </h3>
+                <div class="item-list clearfix">
+                  <div class="subitem">
+                    <dl
+                      class="fore"
+                      v-for="c2 in c1.categoryChild"
+                      :key="c2.categoryId"
+                    >
+                      <dt>
+                        <a
+                          href="javascript:;"
+                          :data-categoryName="c2.categoryName"
+                          :data-category2Id="c2.categoryId"
+                          >{{ c2.categoryName }}</a
+                        >
+                      </dt>
+                      <dd>
+                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                          <a
+                            href="javascript:;"
+                            :data-categoryName="c3.categoryName"
+                            :data-category3Id="c3.categoryId"
+                            >{{ c3.categoryName }}</a
+                          >
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -12,56 +64,22 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2" @click="toSearch">
-          <div class="item" v-for="c1 in categoryList" :key="c1.categoryId">
-            <h3>
-              <a
-                href="javascript:;"
-                :data-categoryName="c1.categoryName"
-                :data-category1Id="c1.categoryId"
-                >{{ c1.categoryName }}</a
-              >
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem">
-                <dl
-                  class="fore"
-                  v-for="c2 in c1.categoryChild"
-                  :key="c2.categoryId"
-                >
-                  <dt>
-                    <a
-                      href="javascript:;"
-                      :data-categoryName="c2.categoryName"
-                      :data-category2Id="c2.categoryId"
-                      >{{ c2.categoryName }}</a
-                    >
-                  </dt>
-                  <dd>
-                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a
-                        href="javascript:;"
-                        :data-categoryName="c3.categoryName"
-                        :data-category3Id="c3.categoryId"
-                        >{{ c3.categoryName }}</a
-                      >
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import throttle from "lodash/throttle";
 export default {
   name: "",
+  data() {
+    const path = this.$route.path;
+    return {
+      currentIndex: -2,
+      isShowFirst: path === "/",
+    };
+  },
   computed: {
     /* categoryList(){
       return this.$store.state.home.categoryList
@@ -71,6 +89,21 @@ export default {
     }),
   },
   methods: {
+    showSubList: throttle(function(index) {
+      if (this.currentIndex !== -2) {
+        this.currentIndex = index;
+      }
+    }, 300),
+    hideFirst() {
+      this.currentIndex = -2;
+      if (this.$route.path !== "/") {
+        this.isShowFirst = false;
+      }
+    },
+    showFirst() {
+      this.currentIndex = -1;
+      this.isShowFirst = true;
+    },
     toSearch(event) {
       const target = event.target;
       const {
@@ -83,7 +116,6 @@ export default {
         const query = {
           categoryName: categoryname,
         };
-        console.log(category1id);
         if (category1id) {
           query.category1Id = category1id;
         } else if (category2id) {
@@ -142,6 +174,16 @@ export default {
       background: #fafafa;
       z-index: 999;
 
+      &.slide-enter-active,
+      &.slide-leave-active {
+        transition: all 0.3s;
+      }
+
+      &.slide-enter,
+      &.slide-leave-to {
+        opacity: 0;
+        height: 0;
+      }
       .all-sort-list2 {
         .item {
           h3 {
@@ -211,7 +253,8 @@ export default {
             }
           }
 
-          &:hover {
+          &.active {
+            background-color: #ccc;
             .item-list {
               display: block;
             }
