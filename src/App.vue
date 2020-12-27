@@ -9,7 +9,6 @@
 <script>
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import {getCategoryList,getBannerList} from './api'
 export default {
   name: "App",
   mounted() {
