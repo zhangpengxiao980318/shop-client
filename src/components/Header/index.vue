@@ -55,6 +55,14 @@ export default {
       keyword:''
     }
   },
+  mounted(){
+    this.$bus.$on('removeKeymove',() =>{
+      this.keyword = ''
+    })
+  },
+  beforeDestroy(){
+    this.$bus.$off('removeKeymove')
+  },
   methods:{
     search(){
       const location = {
@@ -66,7 +74,11 @@ export default {
       }
       // this.$router.push(location,() =>{})
       // this.$router.push(location).catch(() =>{})
-      this.$router.push(location)
+      if(this.$route.name === 'search'){
+        this.$router.replace(location)
+      }else{
+        this.$router.push(location)
+      }
     }
   }
 };

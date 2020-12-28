@@ -9,6 +9,12 @@ const mutations = {
 }
 const actions = {
     async getProductList({commit},searchParams){
+        searchParams = {...searchParams}
+        Object.keys(searchParams).forEach(key =>{
+            if(searchParams[key] === '' || Array.isArray(searchParams[key]) && searchParams[key].length === 0){
+                delete searchParams[key]
+            }
+        })
       const result = await reqSearch(searchParams)
       if(result.code === 200){
           const productList = result.data
@@ -20,7 +26,13 @@ const actions = {
 const getters = {
     goodsList(state){
         return state.productList.goodsList || []
-    }
+    },
+    trademarkList(state){
+        return state.productList.trademarkList || []
+    },
+    attrsList(state){
+        return state.productList.attrsList || []
+    },
 }
 export default {
     state,

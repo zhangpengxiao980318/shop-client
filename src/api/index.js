@@ -14,8 +14,10 @@ export function reqCategoryList(){
 }
 //获取轮播图
 export const reqBannerList = () => ajax('/cms/banner')
-//mock floors和recommends
+//mock数据 
 export const reqFloors = () => mockAjax('/floors')
 export const reqRecommends = () => mockAjax('/recommends')
+export const reqLike = () => mockAjax('/like')
+export const reqRank = () => mockAjax('/rank')
 //搜索商品
 export const reqSearch = (searchParams) => ajax.post('/list',searchParams)

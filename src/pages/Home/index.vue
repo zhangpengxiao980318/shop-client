@@ -31,6 +31,8 @@ export default {
   mounted() {
     this.$store.dispatch('getFloors')
     this.$store.dispatch('getRecommends')
+    this.$store.dispatch('getLike')
+    this.$store.dispatch('getRank')
   },
   computed:{
     ...mapState({

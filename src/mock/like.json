@@ -1,0 +1,43 @@
+[{
+    "id": "1",
+    "imageUrl": "/images/like_02.png",
+    "text": "<a href='javascript:;'>朝天锅,可蒸可炸可煮可炒,万物皆可入锅</a>",
+    "price": "¥153.00"
+  },
+  {
+    "id": "2",
+    "imageUrl": "/images/like_03.png",
+    "text": "<a href='javascript:;'>无线蓝牙耳机双耳运动跑步入耳式挂脖头戴式</a>",
+    "price": "¥232.00"
+
+  },
+  {
+    "id": "3",
+    "imageUrl": "/images/like_01.png",
+    "text": "<a href='javascript:;'>阳光美包新款单肩包女包时尚子母包四件套女</a>",
+    "price": "¥356.00"
+
+  },
+  {
+    "id": "5",
+    "imageUrl": "/images/like_02.png",
+    "text": "<a href='javascript:;'>朝天锅,可蒸可炸可煮可炒,万物皆可入锅</a>",
+    "price": "153.00"
+
+  },
+  {
+    "id": "4",
+    "imageUrl": "/images/like_01.png",
+    "text": "<a href='javascript:;'>阳光美包新款单肩包女包时尚子母包四件套女</a>",
+    "price": "¥356.00"
+
+  },
+  {
+    "id": "6",
+    "imageUrl": "/images/like_03.png",
+    "text": "<a href='javascript:;'>无线蓝牙耳机双耳运动跑步入耳式挂脖头戴式</a>",
+    "price": "¥232.00"
+
+  }
+]
+
